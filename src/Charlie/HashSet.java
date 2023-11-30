@@ -1,17 +1,17 @@
 package Charlie;
 
-public class HashSet {
+public class HashSet<T> {
     private static final int DEFAULT_CAPACITY = 16;
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
-    private Node[] buckets;
+    private Node<T>[] buckets;
     private int size;
 
-    private static class Node {
-        String item;
-        Node next;
+    private static class Node<T> {
+        T item;
+        Node<T> next;
 
-        Node(String item, Node next) {
+        Node(T item, Node<T> next) {
             this.item = item;
             this.next = next;
         }
@@ -22,7 +22,7 @@ public class HashSet {
         size = 0;
     }
 
-    public boolean add(String item) {
+    public boolean add(T item) {
         if (contains(item)) {
             return false; // Item already exists in the set
         }
@@ -32,16 +32,16 @@ public class HashSet {
         }
 
         int index = getBucketIndex(item);
-        Node newNode = new Node(item, buckets[index]);
+        Node<T> newNode = new Node<>(item, buckets[index]);
         buckets[index] = newNode;
         size++;
 
         return true;
     }
 
-    public boolean contains(String item) {
+    public boolean contains(T item) {
         int index = getBucketIndex(item);
-        Node current = buckets[index];
+        Node<T> current = buckets[index];
         while (current != null) {
             if (current.item.equals(item)) {
                 return true; // Item found in the set
@@ -51,10 +51,10 @@ public class HashSet {
         return false; // Item not found in the set
     }
 
-    public boolean remove(String item) {
+    public boolean remove(T item) {
         int index = getBucketIndex(item);
-        Node current = buckets[index];
-        Node previous = null;
+        Node<T> current = buckets[index];
+        Node<T> previous = null;
 
         while (current != null) {
             if (current.item.equals(item)) {
@@ -77,19 +77,19 @@ public class HashSet {
         return size;
     }
 
-    private int getBucketIndex(String item) {
+    private int getBucketIndex(T item) {
         int hashCode = item.hashCode();
         return (hashCode & 0x7fffffff) % buckets.length;
     }
 
     private void resize() {
         int newCapacity = buckets.length * 2;
-        Node[] newBuckets = new Node[newCapacity];
+        Node<T>[] newBuckets = new Node[newCapacity];
 
-        for (Node node : buckets) {
+        for (Node<T> node : buckets) {
             while (node != null) {
                 int newIndex = getBucketIndex(node.item);
-                Node newNode = new Node(node.item, newBuckets[newIndex]);
+                Node<T> newNode = new Node<>(node.item, newBuckets[newIndex]);
                 newBuckets[newIndex] = newNode;
                 node = node.next;
             }
