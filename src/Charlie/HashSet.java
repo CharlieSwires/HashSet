@@ -1,5 +1,7 @@
 package Charlie;
 
+import java.util.Arrays;
+
 public class HashSet<T> {
     private static final int DEFAULT_CAPACITY = 16;
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
@@ -97,4 +99,33 @@ public class HashSet<T> {
 
         buckets = newBuckets;
     }
+    
+
+	public static void main (String args[]) {
+    	HashSet<String> stringHashSet = new HashSet<>();
+    	stringHashSet.add("abba");
+    	stringHashSet.add("bubba");
+    	stringHashSet.add("abba");
+    	System.out.println(stringHashSet.size());
+    	System.out.println(stringHashSet.contains("bubba"));
+    	System.out.println(stringHashSet.contains("buba"));
+		StringBuilder result = new StringBuilder();
+		result.append("HashSet [buckets=");
+		for (Node<String> thing : stringHashSet.buckets) {
+			Node<String> thingy = thing;
+			if (thingy != null) {
+				while(thingy != null) {
+					result.append(thingy.item + ", ");
+					thingy = thingy.next;
+				}
+			}
+			else {
+				result.append("null;\n");
+			}
+		}
+		result.append("\nsize=" + stringHashSet.size + "]");
+
+		System.out.println(result.toString());
+	}
+
 }
