@@ -107,23 +107,30 @@ public class HashSet<T> {
 		System.out.println(stringHashSet.size());
 		System.out.println(stringHashSet.contains("bubba"));
 		System.out.println(stringHashSet.contains("buba"));
-		StringBuilder result = new StringBuilder();
-		result.append("HashSet [buckets=");
-		for (Node<String> thing : stringHashSet.buckets) {
-			Node<String> thingy = thing;
-			if (thingy != null) {
-				while(thingy != null) {
-					result.append(thingy.item + ", ");
-					thingy = thingy.next;
-				}
-			}
-			else {
-				result.append("null;\n");
-			}
-		}
-		result.append("\nsize=" + stringHashSet.size + "]");
+		System.out.println(stringHashSet.toString());
+		stringHashSet.add("buba");
+		System.out.println(stringHashSet.contains("buba"));
+		System.out.println(stringHashSet.toString());
 
-		System.out.println(result.toString());
 	}
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("HashSet [buckets=");
+        for (Node<T> thing : buckets) {
+            Node<T> thingy = thing;
+            if (thingy != null) {
+                while (thingy != null) {
+                    result.append(thingy.item).append(", ");
+                    thingy = thingy.next;
+                }
+            } else {
+                result.append("null;\n");
+            }
+        }
+        result.append("\nsize=").append(size).append("]");
+
+        return result.toString();
+    }
 
 }
