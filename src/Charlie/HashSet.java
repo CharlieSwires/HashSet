@@ -113,28 +113,23 @@ public class HashSet<T> {
 		System.out.println(stringHashSet.toString());
 
 	}
-    @Override
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append("HashSet [buckets=");
-        int index = 0;
-        for (Node<T> thing : buckets) {
-            Node<T> thingy = thing;
-            result.append(index++ + ", ");
-            if (thingy != null) {
-                while (thingy != null) {
-                    result.append(thingy.item).append(", ");
-                    thingy = thingy.next;
-                }
-                result.append("null;\n");
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+		result.append("HashSet [buckets=");
+		int index = 0;
+		for (Node<T> thing : buckets) {
+			Node<T> thingy = thing;
+			result.append(index++ + ", ");
+			while (thingy != null) {
+				result.append(thingy.item).append(", ");
+				thingy = thingy.next;
+			}
+			result.append("null;\n");
+		}
+		result.append("size=").append(size).append("]");
 
-            } else {
-                result.append("null;\n");
-            }
-        }
-        result.append("size=").append(size).append("]");
-
-        return result.toString();
-    }
+		return result.toString();
+	}
 
 }
