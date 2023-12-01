@@ -120,12 +120,12 @@ public class HashSet<T> {
 		int index = 0;
 		for (Node<T> thing : buckets) {
 			Node<T> thingy = thing;
-			result.append(index++ + ", ");
+			result.append("{" + index++ + "=> ");
 			while (thingy != null) {
 				result.append(thingy.item).append(", ");
 				thingy = thingy.next;
 			}
-			result.append("null;\n");
+			result.append("null},\n");
 		}
 		result.append("size=").append(size).append("]");
 
